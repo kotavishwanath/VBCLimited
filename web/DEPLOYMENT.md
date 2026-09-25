@@ -8,7 +8,7 @@ project-specific setting is the **Root Directory** (`web`), because the repo als
 | | |
 | --- | --- |
 | Vercel project | `kotavishwanaths-projects/vbc-limited` |
-| Production URL | https://vbc-limited.vercel.app |
+| Production URL | https://vbc-limited-kappa.vercel.app |
 | Git | `github.com/kotavishwanath/VBCLimited`, branch `master` → Production |
 | Root Directory | `web` |
 | Env vars set | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `MAIL_FROM`, `MAIL_TO`, `MAIL_CC` |
@@ -23,7 +23,10 @@ The repo root is linked to the project (`.vercel/`, git-ignored), so `npx vercel
 
 1. Push the repo to GitHub (`kotavishwanath/VBCLimited`).
 2. In Vercel: **Add New → Project → Import** the repository.
-3. Configure:
+3. **Before clicking Deploy**, click **Edit** next to *Root Directory* and select `web`.
+   The Framework Preset then switches to **Next.js** automatically. If you skip this, Vercel builds the
+   repo root and either fails ("No Next.js version detected") or "succeeds" with preset *Other* and serves 404.
+   Configure:
    | Setting | Value |
    | --- | --- |
    | Framework Preset | Next.js (auto-detected) |
@@ -101,7 +104,9 @@ Old URLs (`/index.php`, `/career.php`, `/index-old.html`) permanently redirect t
 
 | Symptom | Fix |
 | --- | --- |
-| Build fails with "No Next.js version detected" | Root Directory is not set to `web`. |
+| Build fails with "No Next.js version detected" | Root Directory is not set to `web`. Fix it in **Settings → Build and Deployment → Root Directory**, then redeploy. |
+| Deployment is "Ready" in ~2s but every page is 404 | Same cause — Root Directory is `.` and Framework Preset became *Other*. Set Root Directory to `web` (preset becomes Next.js) and redeploy. |
+| Env vars missing after re-importing | Environment variables belong to a project; a deleted/re-imported project starts empty. Re-add them. |
 | Form says "We couldn't send your message" | Check `SMTP_*` variables and the function logs (Deployments → Logs). `535 Username and Password not accepted` means the App Password is wrong or 2-Step Verification is off. |
 | Env change has no effect | Redeploy — variables are read at build/deploy time. |
 | Domain stuck on "Invalid Configuration" | DNS hasn't propagated or records don't match the dashboard values. |
