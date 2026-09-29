@@ -60,10 +60,30 @@ export function Interactions() {
     };
     document.addEventListener("pointermove", onPointerMove, { passive: true });
 
+    // Same-page hash links (e.g. "/#contact" while on "/"): Next.js ignores clicks when the URL
+    // already matches, so scroll explicitly. Runs in the capture phase, before <Link> navigates.
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const link = (e.target as Element | null)?.closest<HTMLAnchorElement>("a[href*='#']");
+      if (!link || (link.target && link.target !== "_self")) return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || !url.hash) return;
+      const section = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!section) return;
+      e.preventDefault();
+      section.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      // Move keyboard focus too (needed for the skip link and screen readers).
+      if (!section.hasAttribute("tabindex")) section.setAttribute("tabindex", "-1");
+      section.focus({ preventScroll: true });
+      if (window.location.hash !== url.hash) window.history.pushState(null, "", url.hash);
+    };
+    document.addEventListener("click", onClick, true);
+
     return () => {
       revealer.disconnect();
       counter.disconnect();
       document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("click", onClick, true);
     };
   }, [pathname]);
 

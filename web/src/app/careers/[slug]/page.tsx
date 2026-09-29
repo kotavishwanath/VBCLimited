@@ -113,7 +113,7 @@ export default async function JobPage({ params }: PageProps<"/careers/[slug]">) 
               </h2>
               <p className="mt-2 text-sm text-slate-400">
                 {open
-                  ? "Tell us about your experience and include a link to your CV or LinkedIn profile."
+                  ? "Tell us about your experience and attach your CV below."
                   : "This role is no longer accepting applications, but we’d love to hear from you for similar opportunities."}{" "}
                 You can also email your CV to{" "}
                 <a href={`mailto:${site.email}`} className="text-cyan-300 underline-offset-4 hover:underline">
@@ -125,7 +125,7 @@ export default async function JobPage({ params }: PageProps<"/careers/[slug]">) 
                 <ContactForm
                   defaultSubject={`${open ? "Application" : "Interest"}: ${job.title}`}
                   submitLabel={open ? "Submit application" : "Send"}
-                  messagePlaceholder="Your experience, notice period, and a link to your CV…"
+                  messagePlaceholder="Your experience, notice period and anything else we should know…"
                 />
               </div>
             </div>

@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { ArrowRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { sendMessage, type ContactState, type FieldName } from "@/app/actions";
+import { AttachmentField } from "@/components/AttachmentField";
 
 const initialState: ContactState = { status: "idle" };
 
@@ -38,6 +39,8 @@ export function ContactForm({
       </div>
       <Field label="Subject" name="subject" defaultValue={value("subject") ?? defaultSubject} error={state.errors?.subject} minLength={3} maxLength={150} />
       <Field label="Message" name="message" textarea placeholder={messagePlaceholder} defaultValue={value("message")} error={state.errors?.message} minLength={10} maxLength={5000} />
+      {/* Remount (clearing files) after each successful send; keep files after validation errors. */}
+      <AttachmentField key={state.sentAt ?? 0} error={state.errors?.attachments} submission={state} />
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <button

@@ -3,6 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
 
+  experimental: {
+    serverActions: {
+      // Contact form attachments are capped at 4 MB total (see src/lib/attachments.ts);
+      // leave headroom for multipart overhead and text fields. Stays under Vercel's 4.5 MB limit.
+      bodySizeLimit: "4.4mb",
+    },
+  },
+
   // Keep old PHP URLs working for search engines and bookmarks.
   async redirects() {
     return [

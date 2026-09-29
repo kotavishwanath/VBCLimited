@@ -104,7 +104,7 @@ export function Hero() {
             <div className="absolute inset-[36%]">
               <div className="absolute inset-0 rounded-[2rem] bg-gradient-brand opacity-50 blur-2xl" />
               <div className="glass relative grid size-full place-items-center rounded-[2rem]">
-                <Image src="/images/vbc.png" alt="" width={120} height={120} className="w-3/5 invert" />
+                <Image src="/images/vbc.png" alt="" width={120} height={120} className="w-3/5 invert" loading="eager" />
               </div>
             </div>
 

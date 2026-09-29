@@ -1,54 +1,33 @@
-# VBC Limited — website
+# VBC Limited — web
 
-Next.js 16 (App Router) + Tailwind CSS v4 rebuild of vbclimited.com. The original PHP site lives in `../legacy/`.
+The Next.js app behind vbclimited.com.
 
-## Requirements
-
-- Node.js 20.9+ (`nvm use 22`)
-
-## Develop
+**Getting started, required Node version, environment variables and troubleshooting are in the
+[root README](../README.md).** Deployment is covered in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ```bash
+nvm use                         # Node 22 (see .nvmrc); must be arm64 on Apple Silicon
 npm install
-cp .env.example .env.local   # then add SMTP_PASS / NEXT_PUBLIC_GA_ID
+cp .env.example .env.local      # no secrets needed for local development
 npm run dev
 ```
 
-Without `SMTP_PASS`, form submissions are logged to the terminal in development.
+## Stack
 
-## Structure
+- Next.js 16 (App Router, Turbopack), React 19, TypeScript
+- Tailwind CSS v4 (design tokens and utilities in `src/app/globals.css`)
+- `lucide-react` icons, `nodemailer` for email, `@next/third-parties` for GA4
 
-- `src/app` — routes: `/`, `/careers`, `/careers/[slug]`, plus sitemap, robots and manifest
-- `src/app/actions.ts` — server action that validates and emails contact/application forms
-- `src/components` — layout, shared UI and home page sections
-- `src/lib/site.ts` — company details, services and copy
-- `src/lib/jobs.ts` — job listings (add or edit roles here)
+## Where things live
 
-Legacy URLs (`/index.php`, `/career.php`) permanently redirect to the new pages (see `next.config.ts`).
+| Path | Contents |
+| --- | --- |
+| `src/app/page.tsx` | Home page (sections in `src/components/home/`) |
+| `src/app/careers/` | `/careers` and `/careers/[slug]` |
+| `src/app/actions.ts` | Form Server Action: validation, attachment checks, SMTP send |
+| `src/lib/site.ts` | Company details, services, stats and other copy |
+| `src/lib/jobs.ts` | Job listings |
+| `src/lib/attachments.ts` | Upload limits and allowed file types |
+| `next.config.ts` | Redirects from the old PHP URLs, security headers, Server Action body size limit |
 
-## Build
-
-```bash
-npm run build && npm start
-```
-
-## Deploy to Vercel
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for the full guide (project setup, environment variables, domain/DNS
-and post-deploy checks). In short: import the repo in Vercel with **Root Directory** = `web`, add the
-variables from `.env.example`, deploy, then point `vbclimited.com` at Vercel.
-
-## Email (Google Workspace / Gmail)
-
-Forms send via `smtp.gmail.com:465` as `SMTP_USER`. Create an App Password for that account
-(2-Step Verification must be on) at https://myaccount.google.com/apppasswords and set it as `SMTP_PASS`.
-Until `SMTP_PASS` is set, development submissions are logged to the terminal.
-
-## Analytics
-
-Set `NEXT_PUBLIC_GA_ID` to a GA4 measurement ID (`G-…`) to enable Google Analytics. Leave it empty to disable.
-
-## Job listings
-
-Edit the `jobs` array in `src/lib/jobs.ts`. When it is empty, `/careers` shows a "no open roles" message
-with the general application form. Roles past their `closingDate` are automatically marked closed.
+Before opening a PR, run `npm run lint` and `npm run build`.

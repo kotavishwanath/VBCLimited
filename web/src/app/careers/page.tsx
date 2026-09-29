@@ -151,7 +151,7 @@ export default function CareersPage() {
               }
               intro={
                 <>
-                  Share your experience and a link to your CV or LinkedIn profile. You can also email your CV directly
+                  Share your experience and attach your CV to the form. You can also email your CV directly
                   to{" "}
                   <a href={`mailto:${site.email}`} className="text-cyan-300 underline-offset-4 hover:underline">
                     {site.email}
@@ -167,7 +167,7 @@ export default function CareersPage() {
                 <ContactForm
                   defaultSubject="General application"
                   submitLabel="Submit application"
-                  messagePlaceholder="Your experience, the kind of role you’re looking for, and a link to your CV…"
+                  messagePlaceholder="Your experience and the kind of role you’re looking for…"
                 />
               </div>
             </div>

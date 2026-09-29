@@ -112,6 +112,11 @@ body {
   outline-offset: 3px;
 }
 
+/* Sections focused programmatically by in-page links don't need a ring. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
 /* ---------- Scroll reveal ---------- */
 [data-reveal] {
   opacity: 0;
