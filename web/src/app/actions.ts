@@ -134,7 +134,7 @@ export async function sendMessage(
     });
 
     await transporter.sendMail({
-      from: MAIL_FROM || `VBC Limited Website <${SMTP_USER || "no-reply@vbclimited.com"}>`,
+      from: MAIL_FROM || `VBC Limited Website <${SMTP_USER?.includes("@") ? SMTP_USER : "website@vbclimited.com"}>`,
       to: MAIL_TO ?? site.email,
       cc: MAIL_CC || undefined,
       replyTo: { name: values.name, address: values.email },

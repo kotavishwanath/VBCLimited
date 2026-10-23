@@ -5,7 +5,16 @@ Marketing and careers website for VBC Limited (Versatile Business Consultants Lt
 | Folder | What it is |
 | --- | --- |
 | [`web/`](web) | **The live site.** Next.js 16 (App Router, Turbopack) + React 19 + Tailwind CSS v4, deployed on Vercel. |
-| [`legacy/`](legacy) | The original PHP/Bootstrap site, kept for reference only. Not deployed. |
+| [`legacy/`](legacy) | The original PHP/Bootstrap site (previously on HostingRaja), kept for reference only. Not deployed. |
+
+**Where things run**
+
+| Service | Used for |
+| --- | --- |
+| **Vercel** | Hosting (project `vbc-limited`) **and DNS** for vbclimited.com |
+| **GoDaddy** | Domain registration only. Its nameservers point to Vercel. |
+| **Resend** | Sends the website's contact/application form emails |
+| **Google Workspace** | Company mailboxes (e.g. `jobs@vbclimited.com`) |
 
 ---
 
@@ -55,9 +64,10 @@ Copy [`web/.env.example`](web/.env.example) to `web/.env.local`. `.env.local` is
 
 | Variable | Required? | Purpose |
 | --- | --- | --- |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER` | For sending email | Google Workspace SMTP (`smtp.gmail.com`, `465`, `jobs@vbclimited.com`) |
-| `SMTP_PASS` | For sending email | Google **App Password** for `SMTP_USER`. Ask the project owner; don't use a personal password. |
-| `MAIL_FROM`, `MAIL_TO`, `MAIL_CC` | Optional | Sender, recipient and CC for form submissions |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER` | For sending email | Resend SMTP: `smtp.resend.com`, `465`, `resend` (already in the template) |
+| `SMTP_PASS` | For sending email | A **Resend API key** (`re_…`) with sending access to `vbclimited.com`. Ask the project owner. |
+| `MAIL_FROM` | For sending email | Must be an address on the verified domain, e.g. `VBC Limited Website <website@vbclimited.com>` |
+| `MAIL_TO`, `MAIL_CC` | Optional | Recipient and CC for form submissions (default `jobs@vbclimited.com`) |
 | `NEXT_PUBLIC_GA_ID` | Optional | GA4 measurement ID (`G-…`). Leave it empty to turn analytics off. |
 
 **You don't need any secrets to develop locally.** When `SMTP_PASS` is empty, contact and application form
@@ -102,7 +112,8 @@ web/
 ## Deployment
 
 The site deploys to **Vercel** (project `vbc-limited`, **Root Directory = `web`**). Every push to `master`
-deploys to production. See [`web/DEPLOYMENT.md`](web/DEPLOYMENT.md) for environment variables, the custom domain and troubleshooting.
+deploys to production at https://www.vbclimited.com. See [`web/DEPLOYMENT.md`](web/DEPLOYMENT.md) for environment
+variables, DNS records, email setup and troubleshooting.
 
 ## Troubleshooting
 
@@ -112,5 +123,5 @@ deploys to production. See [`web/DEPLOYMENT.md`](web/DEPLOYMENT.md) for environm
 | `Cannot find module '../lightningcss.darwin-x64.node'` (or a similar `.node` file) | Your Node build is the wrong architecture. See [Apple Silicon Macs](#apple-silicon-macs-m1m2m3m4), then `rm -rf web/.next`. |
 | The same error keeps coming back after you switch Node versions | Turbopack caches build errors. Stop the server, run `rm -rf web/.next`, and restart. |
 | `Port 3000 is in use … using 3001` | Another dev server is running. Stop it, or use the port shown in the terminal. |
-| Form says "We couldn't send your message" (production) | `SMTP_*` variables are missing or wrong in Vercel. See `web/DEPLOYMENT.md`. |
+| Form says "We couldn't send your message" (production) | The Resend settings (`SMTP_*`, `MAIL_FROM`) are missing or wrong in Vercel, or Vercel wasn't redeployed after changing them. See `web/DEPLOYMENT.md`. |
 | Unexpected type errors about `PageProps` / `LayoutProps` | Run `npx next typegen` inside `web/` (it also runs automatically on `dev` and `build`). |
