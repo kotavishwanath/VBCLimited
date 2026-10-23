@@ -59,7 +59,7 @@ export function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled || open ? "border-b border-white/5 bg-ink-950/70 backdrop-blur-xl" : "border-b border-transparent"
+        scrolled || open ? "border-b border-white/5 bg-ink-950/90 md:bg-ink-950/70 md:backdrop-blur-xl" : "border-b border-transparent"
       }`}
     >
       <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 sm:px-8" aria-label="Main">

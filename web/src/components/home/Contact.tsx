@@ -12,7 +12,7 @@ const channels = [
 export function Contact() {
   return (
     <section id="contact" className="relative overflow-hidden py-28 sm:py-36">
-      <div aria-hidden="true" className="absolute bottom-0 left-1/2 -z-10 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[140px]" />
+      <div aria-hidden="true" className="glow absolute bottom-0 left-1/2 -z-10 h-[700px] w-[1100px] -translate-x-1/2 rounded-full [--glow:rgb(6_182_212/0.12)]" />
       <Container className="grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <SectionHeading
@@ -49,7 +49,7 @@ export function Contact() {
 
         <div data-reveal style={delay(0.1)} className="lg:col-span-7">
           <div className="relative rounded-[2rem] bg-gradient-to-br from-cyan-400/40 via-indigo-500/20 to-fuchsia-500/30 p-px">
-            <div className="rounded-[calc(2rem-1px)] bg-ink-900/95 p-7 backdrop-blur-xl sm:p-10">
+            <div className="rounded-[calc(2rem-1px)] bg-ink-900/95 p-7 sm:p-10">
               <h3 className="font-display text-2xl font-semibold text-white">Send us a message</h3>
               <p className="mt-2 text-sm text-slate-400">All fields are required. We’ll reply to the email you provide.</p>
               <div className="mt-8">

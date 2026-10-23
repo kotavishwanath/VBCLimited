@@ -58,9 +58,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-GB" data-scroll-behavior="smooth" className={`${inter.variable} ${grotesk.variable} antialiased`}>
       <body className="min-h-dvh font-sans">
-        <noscript>
-          <style>{`[data-reveal]{opacity:1!important;transform:none!important}.bar{transform:none!important}`}</style>
-        </noscript>
         <a
           href="#main"
           className="fixed left-4 top-4 z-[60] -translate-y-20 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink-950 focus:translate-y-0"

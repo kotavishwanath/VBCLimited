@@ -54,7 +54,7 @@ export function ButtonLink({ variant = "primary", arrow = true, className = "", 
   const styles =
     variant === "primary"
       ? "bg-gradient-brand text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
-      : "border border-white/15 bg-white/[0.03] text-white backdrop-blur hover:border-white/30 hover:bg-white/[0.07]";
+      : "border border-white/15 bg-white/[0.03] text-white hover:border-white/30 hover:bg-white/[0.07] md:backdrop-blur";
   return (
     <Link
       {...props}

@@ -1,7 +1,13 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+
+  // The repo root has its own package.json/lockfile (it only forwards scripts here), so pin the app root
+  // to this folder instead of letting Next.js guess.
+  outputFileTracingRoot: path.join(__dirname),
+  turbopack: { root: path.join(__dirname) },
 
   experimental: {
     serverActions: {

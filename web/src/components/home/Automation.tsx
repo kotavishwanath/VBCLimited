@@ -13,7 +13,7 @@ export function Automation() {
   return (
     <section id="automation" className="relative overflow-clip py-28 sm:py-36">
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/3 size-[900px] -translate-x-1/2 rounded-full bg-indigo-700/15 blur-[140px]" />
+        <div className="glow absolute left-1/2 top-1/3 size-[1100px] -translate-x-1/2 -translate-y-1/4 rounded-full [--glow:rgb(67_56_202/0.18)]" />
         <div className="absolute inset-0 bg-grid opacity-50 mask-radial" />
       </div>
 

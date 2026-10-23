@@ -43,14 +43,14 @@ export default async function JobPage({ params }: PageProps<"/careers/[slug]">) 
     <>
       <section className="relative isolate overflow-hidden pb-16 pt-36 sm:pt-44">
         <div aria-hidden="true" className="absolute inset-0 -z-10">
-          <div className="absolute -left-32 -top-32 size-[520px] rounded-full bg-indigo-600/25 blur-[120px]" />
+          <div className="glow absolute -left-52 -top-52 size-[720px] rounded-full [--glow:rgb(79_70_229/0.25)]" />
           <div className="absolute inset-0 bg-grid mask-radial" />
         </div>
         <Container>
           <Link href="/careers#roles" className="inline-flex items-center gap-2 text-sm text-slate-400 transition hover:text-white">
             <ArrowLeft className="size-4" /> All roles
           </Link>
-          <div data-reveal className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="hero-in mt-8 flex flex-wrap items-center gap-3">
             <Kicker>{site.legalName}</Kicker>
             <span
               className={`rounded-full px-3 py-1 text-xs font-semibold ${
@@ -61,13 +61,12 @@ export default async function JobPage({ params }: PageProps<"/careers/[slug]">) 
             </span>
           </div>
           <h1
-            data-reveal
-            style={delay(0.08)}
-            className="mt-6 max-w-4xl font-display text-5xl font-semibold leading-[1.04] tracking-tight text-white sm:text-6xl"
+            style={delay(0.06)}
+            className="hero-in mt-6 max-w-4xl font-display text-5xl font-semibold leading-[1.04] tracking-tight text-white sm:text-6xl"
           >
             {job.title}
           </h1>
-          <p data-reveal style={delay(0.16)} className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-400">
+          <p style={delay(0.12)} className="hero-in mt-6 max-w-3xl text-lg leading-relaxed text-slate-400">
             {job.summary}
           </p>
         </Container>

@@ -72,8 +72,11 @@
 @utility glass {
   background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.02));
   border: 1px solid rgb(255 255 255 / 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Soft colour glow without `filter: blur()` (cheap to paint, even on phones). Set --glow per element. */
+@utility glow {
+  background-image: radial-gradient(closest-side, var(--glow, rgb(99 102 241 / 0.25)), transparent);
 }
 
 @utility bg-grid {
@@ -117,18 +120,38 @@ body {
   outline: none;
 }
 
-/* ---------- Scroll reveal ---------- */
+/* Frosted glass is expensive to repaint while scrolling, so only blur on larger screens. */
+@media (min-width: 768px) {
+  .glass {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+}
+
+/* ---------- Hero entrance (pure CSS, doesn't wait for JavaScript) ---------- */
+.hero-in {
+  animation: hero-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* ---------- Scroll reveal ----------
+   Content is visible by default. Once JavaScript is running, <Interactions> marks what's already on
+   screen as visible and sets html[data-reveal-ready]; only the rest is hidden until scrolled into view. */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(28px);
   transition:
     opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
     transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
   transition-delay: var(--d, 0s);
 }
-[data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
+html[data-reveal-ready] [data-reveal]:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(28px);
 }
 
 /* ---------- Spotlight cards ---------- */
@@ -175,17 +198,19 @@ body {
   opacity: 1;
 }
 
-/* ---------- Progress bars (animate once revealed) ---------- */
+/* ---------- Progress bars (animate once revealed; full width without JS) ---------- */
 .bar {
-  transform: scaleX(0);
   transform-origin: left;
 }
-.is-visible .bar {
-  animation: grow 1.4s var(--bd, 0s) cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+html[data-reveal-ready] [data-reveal]:not(.is-visible) .bar {
+  transform: scaleX(0);
+}
+html[data-reveal-ready] .is-visible .bar {
+  animation: grow 1.4s var(--bd, 0s) cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 @keyframes grow {
-  to {
-    transform: scaleX(1);
+  from {
+    transform: scaleX(0);
   }
 }
 
@@ -200,7 +225,8 @@ body {
 .rotator > span {
   grid-area: 1 / 1;
   animation: rotate-word 12s cubic-bezier(0.7, 0, 0.2, 1) infinite;
-  animation-delay: calc(var(--i) * 3s);
+  /* Offset by -0.5s so the first word is already fully visible on first paint (it's the LCP element). */
+  animation-delay: calc(var(--i) * 3s - 0.5s);
   transform: translateY(110%);
   opacity: 0;
 }
@@ -232,7 +258,7 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  [data-reveal] {
+  html[data-reveal-ready] [data-reveal]:not(.is-visible) {
     opacity: 1;
     transform: none;
   }

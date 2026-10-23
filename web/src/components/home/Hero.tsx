@@ -19,13 +19,13 @@ export function Hero() {
     <section className="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-24 pt-32">
       {/* Background */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="absolute -left-40 -top-40 size-[640px] animate-aurora rounded-full bg-indigo-600/30 blur-[120px]" />
+        <div className="glow absolute -left-60 -top-60 size-[820px] rounded-full [--glow:rgb(79_70_229/0.3)] md:animate-aurora" />
         <div
-          className="absolute -right-40 top-20 size-[560px] animate-aurora rounded-full bg-cyan-500/20 blur-[120px]"
+          className="glow absolute -right-56 top-4 size-[720px] rounded-full [--glow:rgb(6_182_212/0.2)] md:animate-aurora"
           style={{ animationDelay: "-7s" }}
         />
         <div
-          className="absolute bottom-[-20%] left-1/3 size-[520px] animate-aurora rounded-full bg-fuchsia-600/20 blur-[120px]"
+          className="glow absolute bottom-[-30%] left-1/4 size-[680px] rounded-full [--glow:rgb(192_38_211/0.18)] md:animate-aurora"
           style={{ animationDelay: "-13s" }}
         />
         <div className="absolute inset-0 bg-grid mask-radial" />
@@ -35,10 +35,7 @@ export function Hero() {
 
       <Container className="grid items-center gap-16 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <p
-            data-reveal
-            className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-2 pr-4 text-xs font-medium text-slate-300 backdrop-blur"
-          >
+          <p className="hero-in inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] py-1.5 pl-2 pr-4 text-xs font-medium text-slate-300 md:backdrop-blur">
             <span className="relative flex size-2.5">
               <span className="absolute inset-0 animate-pulse-ring rounded-full bg-cyan-400" />
               <span className="relative size-2.5 rounded-full bg-cyan-400" />
@@ -47,9 +44,8 @@ export function Hero() {
           </p>
 
           <h1
-            data-reveal
-            style={delay(0.08)}
-            className="mt-7 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-[5.4rem]"
+            style={delay(0.06)}
+            className="hero-in mt-7 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-[5.4rem]"
           >
             <span className="sr-only">Smart people. Smarter solutions.</span>
             <span aria-hidden="true">
@@ -66,19 +62,19 @@ export function Hero() {
             </span>
           </h1>
 
-          <p data-reveal style={delay(0.16)} className="mt-7 max-w-xl text-lg leading-relaxed text-slate-400">
+          <p style={delay(0.12)} className="hero-in mt-7 max-w-xl text-lg leading-relaxed text-slate-400">
             A dedicated team of professionals with combined experience — connecting businesses with exceptional IT
             talent, and building the software, apps and quality frameworks that move them forward.
           </p>
 
-          <div data-reveal style={delay(0.24)} className="mt-10 flex flex-wrap gap-4">
+          <div style={delay(0.18)} className="hero-in mt-10 flex flex-wrap gap-4">
             <ButtonLink href="/#contact">Hire talent</ButtonLink>
             <ButtonLink href="/careers" variant="ghost">
               Explore careers
             </ButtonLink>
           </div>
 
-          <ul data-reveal style={delay(0.32)} className="mt-12 flex flex-wrap gap-x-7 gap-y-3 text-sm text-slate-400">
+          <ul style={delay(0.24)} className="hero-in mt-12 flex flex-wrap gap-x-7 gap-y-3 text-sm text-slate-400">
             {["Permanent & contract staffing", "In-house development teams", "End-to-end QA"].map((p) => (
               <li key={p} className="flex items-center gap-2">
                 <span className="grid size-5 place-items-center rounded-full bg-cyan-400/10 text-cyan-300">
@@ -91,7 +87,7 @@ export function Hero() {
         </div>
 
         {/* Orbit visual */}
-        <div data-reveal style={delay(0.2)} aria-hidden="true" className="hidden lg:col-span-5 lg:block">
+        <div style={delay(0.15)} aria-hidden="true" className="hero-in hidden lg:col-span-5 lg:block">
           <div className="relative mx-auto aspect-square w-full max-w-[480px]">
             <div className="absolute inset-0 rounded-full border border-white/[0.07]" />
             <div className="absolute inset-[12%] animate-spin-slow rounded-full border border-dashed border-indigo-400/25">

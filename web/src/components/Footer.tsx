@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-white/5 bg-ink-950">
-      <div className="pointer-events-none absolute inset-x-0 -top-40 mx-auto h-80 max-w-4xl rounded-full bg-indigo-600/15 blur-3xl" />
+      <div className="glow pointer-events-none absolute inset-x-0 -top-56 mx-auto h-[28rem] max-w-5xl rounded-full [--glow:rgb(79_70_229/0.16)]" />
 
       <div className="relative mx-auto max-w-7xl px-5 pt-20 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-12">

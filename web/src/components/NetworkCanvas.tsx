@@ -16,6 +16,8 @@ export function NetworkCanvas({ className = "" }: { className?: string }) {
     const ctx = canvas?.getContext("2d");
     if (!canvas || !host || !ctx) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Phones/tablets: skip the per-frame animation (battery, smooth scrolling); the mouse effect needs a pointer anyway.
+    if (window.matchMedia("(hover: none), (max-width: 767px)").matches) return;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const mouse = { x: -9999, y: -9999 };

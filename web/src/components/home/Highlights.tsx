@@ -34,7 +34,7 @@ export function CareersCta() {
             className="-z-20 object-cover opacity-40 grayscale"
           />
           <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/85 to-indigo-950/60" />
-          <div className="absolute -right-20 -top-20 -z-10 size-96 rounded-full bg-cyan-500/20 blur-3xl" />
+          <div className="glow absolute -right-32 -top-32 -z-10 size-[32rem] rounded-full [--glow:rgb(6_182_212/0.22)]" />
 
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">Careers at VBC</p>

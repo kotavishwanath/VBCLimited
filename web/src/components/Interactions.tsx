@@ -27,7 +27,22 @@ export function Interactions() {
       },
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
     );
-    revealEls.forEach((el) => (reduceMotion ? el.classList.add("is-visible") : revealer.observe(el)));
+    const root = document.documentElement;
+    if (reduceMotion) {
+      revealEls.forEach((el) => el.classList.add("is-visible"));
+    } else {
+      // Content is server-rendered visible. On first load, keep whatever is already on screen as-is
+      // (no flash, no waiting for JS) and only hide-then-reveal what's further down the page.
+      if (!root.hasAttribute("data-reveal-ready")) {
+        revealEls.forEach((el) => {
+          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("is-visible");
+        });
+        root.setAttribute("data-reveal-ready", "");
+      }
+      revealEls.forEach((el) => {
+        if (!el.classList.contains("is-visible")) revealer.observe(el);
+      });
+    }
 
     const counters = document.querySelectorAll<HTMLElement>("[data-count]");
     const counter = new IntersectionObserver(
